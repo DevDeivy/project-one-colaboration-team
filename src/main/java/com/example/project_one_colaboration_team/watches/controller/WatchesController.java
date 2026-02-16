@@ -1,7 +1,7 @@
-package com.example.project_one_colaboration_team.api.controllers;
+package com.example.project_one_colaboration_team.watches.controller;
 
-import com.example.project_one_colaboration_team.api.dto.WatchesDTO;
-import com.example.project_one_colaboration_team.application.services.WatchesService;
+import com.example.project_one_colaboration_team.watches.dto.WatchesDTO;
+import com.example.project_one_colaboration_team.watches.service.WatchesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

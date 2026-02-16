@@ -1,4 +1,4 @@
-package com.example.project_one_colaboration_team.domain.models;
+package com.example.project_one_colaboration_team.shirts.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

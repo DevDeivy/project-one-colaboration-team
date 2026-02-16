@@ -1,4 +1,4 @@
-package com.example.project_one_colaboration_team.api.dto;
+package com.example.project_one_colaboration_team.watches.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

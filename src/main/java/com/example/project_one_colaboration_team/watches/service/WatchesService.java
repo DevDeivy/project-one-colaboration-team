@@ -1,8 +1,8 @@
-package com.example.project_one_colaboration_team.application.services;
+package com.example.project_one_colaboration_team.watches.service;
 
-import com.example.project_one_colaboration_team.api.dto.WatchesDTO;
-import com.example.project_one_colaboration_team.domain.models.Watches;
-import com.example.project_one_colaboration_team.infraestructure.repository.WatchesRepository;
+import com.example.project_one_colaboration_team.watches.model.Watches;
+import com.example.project_one_colaboration_team.watches.dto.WatchesDTO;
+import com.example.project_one_colaboration_team.watches.repository.WatchesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
