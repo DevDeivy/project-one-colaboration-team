@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cap")
+@RequestMapping("/api/products/cap")
 @RequiredArgsConstructor
 public class CapController {
     private final CapService capService;
@@ -30,9 +31,9 @@ public class CapController {
         return ResponseEntity.ok(capService.getAll());
     }
 
-    @GetMapping("/{id}")
-    private ResponseEntity<CapDto> getById(@PathVariable long id){
-        return ResponseEntity.ok(capService.findById(id));
+    @PutMapping("/{id}")
+    private ResponseEntity<CapDto> getById(@PathVariable long id, @RequestBody CapDto dto){
+        return ResponseEntity.ok(capService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
