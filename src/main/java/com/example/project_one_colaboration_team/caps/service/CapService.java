@@ -29,10 +29,18 @@ public class CapService {
                 .toList();
     }
 
-    public CapDto findById(long id){
-        Cap cap = capRepository.findById(id)
+    public CapDto update(long id, CapDto dto){
+        Cap existCap = capRepository.findById(id)
                         .orElseThrow(() -> new RuntimeException("Cap not found") );
-        return CapMapper.toDto(cap);
+
+        existCap.setBrand(dto.getBrand());
+        existCap.setCategory(dto.getCategory());
+        existCap.setPrice(dto.getPrice());
+        existCap.setColor(dto.getColor());
+
+        Cap update = capRepository.save(existCap);
+
+        return CapMapper.toDto(update);
     }
 
     public void deleteDyId(Long id){

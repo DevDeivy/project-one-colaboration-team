@@ -28,9 +28,17 @@ public class ShoesService {
                 .toList();
     }
 
-    public ShoesDto findById(long id){
-        Shoes shoes = shoesRepository.findById(id)
+    public ShoesDto update(long id, ShoesDto dto){
+        Shoes existShoes = shoesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Shoes not found"));
+
+        existShoes.setBrand(dto.getBrand());
+        existShoes.setCategory(dto.getCategory());
+        existShoes.setPrice(dto.getPrice());
+        existShoes.setSize(dto.getSize());
+
+        Shoes shoes = shoesRepository.save(existShoes);
+
         return ShoesMapper.toDto(shoes);
     }
 
