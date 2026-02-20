@@ -1,14 +1,22 @@
 package com.example.project_one_colaboration_team.watches.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-public class WatchesDTO {
+public class WatchesResponseDTO {
+    private Long id;
+    @NotBlank
     private String model;
+    @NotBlank
     private String brand;
+    @NotNull
     private Integer cost;
 }

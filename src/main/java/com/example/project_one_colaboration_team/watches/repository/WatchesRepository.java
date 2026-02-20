@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WatchesRepository extends JpaRepository<Watches, Long> {
     boolean existsByModel (String model);
-    boolean existsById (Long id);
 }

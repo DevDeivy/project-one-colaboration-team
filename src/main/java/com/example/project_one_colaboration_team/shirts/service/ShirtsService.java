@@ -1,14 +1,15 @@
 package com.example.project_one_colaboration_team.shirts.service;
 
-import com.example.project_one_colaboration_team.shirts.dto.ShirtsDTO;
+import com.example.project_one_colaboration_team.shirts.dto.ShirtsRequestDTO;
+import com.example.project_one_colaboration_team.shirts.dto.ShirtsResponseDTO;
+import com.example.project_one_colaboration_team.shirts.mapper.ShirtsMapper;
 import com.example.project_one_colaboration_team.shirts.model.Shirts;
 import com.example.project_one_colaboration_team.shirts.repository.ShirtsRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -16,35 +17,35 @@ import java.util.List;
 public class ShirtsService {
 
     private final ShirtsRepository shirtsRepository;
+    private final ShirtsMapper shirtsMapper;
+    private String[] sizeAll = {"S", "M", "L", "XL", "XXL"};
 
-    public List<Shirts> getShirts(){
-        return shirtsRepository.findAll();
+    public List<ShirtsResponseDTO> getShirts(){
+        return shirtsRepository.findAll()
+                .stream()
+                .map(shirtsMapper::entityToDTO)
+                .toList();
     }
 
-    public Shirts createShirts(@RequestBody ShirtsDTO shirtsDTO) {
-        Shirts shirts = new Shirts();
-        shirts.setBrand(shirtsDTO.getBrand());
-        shirts.setCost(shirtsDTO.getCost());
-        shirts.setSize(shirtsDTO.getSize());
-        return shirtsRepository.save(shirts);
+    public ShirtsResponseDTO createShirts(ShirtsRequestDTO shirtsRequestDTO) {
+        if(shirtsRequestDTO == null) return null;
+     // if(!Arrays.asList(sizeAll).contains(shirtsRequestDTO.getSize())) throw new IllegalArgumentException("error this aren´t size");
+        Shirts shirts = shirtsMapper.dtoToEntity(shirtsRequestDTO);
+        Shirts saved = shirtsRepository.save(shirts);
+        return shirtsMapper.entityToDTO(saved);
     }
 
-    public Shirts updateShirts(Long id, ShirtsDTO shirtsDTO){
+    public ShirtsResponseDTO updateShirts(Long id, ShirtsRequestDTO shirtsRequestDTO){
         var optionalShirt = shirtsRepository.findById(id);
-        if(!shirtsRepository.existsById(id)){
-            throw new RuntimeException("Shirt not found");
-        }
-        if (optionalShirt.isEmpty()){
-            throw new RuntimeException("Shirt not found");
-        }
+        if(!shirtsRepository.existsById(id)) throw new EntityNotFoundException("Shirt not found");
+        if (optionalShirt.isEmpty()) throw new EntityNotFoundException("Shirt not found");
         Shirts shirts = optionalShirt.get();
-        shirts.setSize(shirtsDTO.getSize());
-        shirts.setCost(shirtsDTO.getCost());
-        shirts.setBrand(shirtsDTO.getBrand());
-        return shirtsRepository.save(shirts);
+        shirtsMapper.updateEntityFromDTO(shirtsRequestDTO, shirts);
+        Shirts saved = shirtsRepository.save(shirts);
+        return shirtsMapper.entityToDTO(saved);
     }
 
-    public String deleteShirts(@PathVariable Long id){
+    public String deleteShirts(Long id){
         if(!shirtsRepository.existsById(id)){
             throw new RuntimeException("Shirt not found");
         }
