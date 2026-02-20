@@ -13,36 +13,36 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ShoesService {
 
-    private final ShoesRepository shoesRepository;
+private final ShoesRepository shoesRepository;
 
-    public ShoesDto save(ShoesDto dto){
-        Shoes shoes = ShoesMapper.toEntity(dto);
-        Shoes saved = shoesRepository.save(shoes);
-        return  ShoesMapper.toDto(saved);
-    }
+public ShoesDto save(ShoesDto dto){
+    Shoes shoes = ShoesMapper.toEntity(dto);
+    Shoes saved = shoesRepository.save(shoes);
+    return  ShoesMapper.toDto(saved);
+}
 
-    public List<ShoesDto> findAll(){
-        return shoesRepository.findAll()
-                .stream()
-                .map(ShoesMapper::toDto)
-                .toList();
-    }
+public List<ShoesDto> findAll(){
+    return shoesRepository.findAll()
+            .stream()
+            .map(ShoesMapper::toDto)
+            .toList();
+}
 
-    public ShoesDto update(long id, ShoesDto dto){
-        Shoes existShoes = shoesRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Shoes not found"));
+public ShoesDto update(long id, ShoesDto dto){
+    Shoes existShoes = shoesRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Shoes not found"));
 
-        existShoes.setBrand(dto.getBrand());
-        existShoes.setCategory(dto.getCategory());
-        existShoes.setPrice(dto.getPrice());
-        existShoes.setSize(dto.getSize());
+    existShoes.setBrand(dto.getBrand());
+    existShoes.setCategory(dto.getCategory());
+    existShoes.setPrice(dto.getPrice());
+    existShoes.setSize(dto.getSize());
 
-        Shoes shoes = shoesRepository.save(existShoes);
+    Shoes shoes = shoesRepository.save(existShoes);
 
-        return ShoesMapper.toDto(shoes);
-    }
+    return ShoesMapper.toDto(shoes);
+}
 
-    public void delete(Long id){
-        shoesRepository.deleteById(id);
-    }
+public void delete(Long id){
+    shoesRepository.deleteById(id);
+}
 }

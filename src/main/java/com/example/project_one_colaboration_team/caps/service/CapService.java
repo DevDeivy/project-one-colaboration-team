@@ -4,7 +4,6 @@ import com.example.project_one_colaboration_team.caps.dto.CapDto;
 import com.example.project_one_colaboration_team.caps.mapper.CapMapper;
 import com.example.project_one_colaboration_team.caps.model.Cap;
 import com.example.project_one_colaboration_team.caps.repository.CapRepository;
-import com.example.project_one_colaboration_team.shoes.mapper.ShoesMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CapService {
 
-    private static CapRepository capRepository;
+    private final CapRepository capRepository;
 
     public CapDto save(CapDto dto){
         Cap cap = CapMapper.toEntity(dto);
