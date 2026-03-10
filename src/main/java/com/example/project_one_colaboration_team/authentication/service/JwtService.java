@@ -15,7 +15,7 @@ import java.util.Map;
 @Service
 public class JwtService {
 
-    public static final String SECRET_KEY = "{{SECRET_KEY}}";
+    public static final String SECRET_KEY = "thisisasecretkeytoprojectonecolaborationteamwithdeivyandcabanayouknow";
 
     public String getToken(UserDetails userDetails){
         return getToken(new HashMap<>(), userDetails);
